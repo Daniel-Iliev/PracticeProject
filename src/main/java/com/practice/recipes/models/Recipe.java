@@ -1,22 +1,27 @@
 package com.practice.recipes.models;
 
-import java.util.ArrayList;
 
-public class Recipe {
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+@Entity
+@Table(name="recipes")
+public class Recipe{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String name;
-    private String id;
-    private ArrayList<Ingredient> ingredients;
+//    private ArrayList<Ingredient> ingredients;
     private String authorId;
     private int minutesNeeded;
     private String description;
-
     public Recipe() {
     }
 
-    public Recipe(String name, String id, ArrayList<Ingredient> ingredients, String authorId, int minutesNeeded, String description) {
+    public Recipe(String name, Integer id, ArrayList<Ingredient> ingredients, String authorId, int minutesNeeded, String description) {
         this.name = name;
         this.id = id;
-        this.ingredients = ingredients;
+//        this.ingredients = ingredients;
         this.authorId = authorId;
         this.minutesNeeded = minutesNeeded;
         this.description = description;
@@ -30,21 +35,21 @@ public class Recipe {
         this.name = name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public ArrayList<Ingredient> getIngredients() {
-        return ingredients;
-    }
+//    public ArrayList<Ingredient> getIngredients() {
+//        return ingredients;
+//    }
 
-    public void setIngredients(ArrayList<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
+//    public void setIngredients(ArrayList<Ingredient> ingredients) {
+//        this.ingredients = ingredients;
+//    }
 
     public String getAuthorId() {
         return authorId;
