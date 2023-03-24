@@ -1,7 +1,14 @@
 package com.practice.recipes.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class Ingredient {
+
+    @JsonProperty("ingredient-name")
     private String name;
+    @JsonProperty("ingredient-quantity")
     private int quantity;
 
     public Ingredient() {

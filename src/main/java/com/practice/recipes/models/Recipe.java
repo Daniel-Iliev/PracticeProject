@@ -1,30 +1,51 @@
 package com.practice.recipes.models;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 @Entity
 @Table(name="recipes")
 public class Recipe{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @JsonProperty("recipe-name")
     private String name;
-//    private ArrayList<Ingredient> ingredients;
+    @Embedded
+    @JsonProperty("recipe-ingredients")
+    private List<Ingredient> ingredients;
+
+    @JsonProperty("recipe-author-id")
     private String authorId;
+
+    @JsonProperty("recipe-minutes-needed")
     private int minutesNeeded;
+
+    @JsonProperty("recipe-description")
     private String description;
+    private Date dateCreated;
     public Recipe() {
     }
 
-    public Recipe(String name, Integer id, ArrayList<Ingredient> ingredients, String authorId, int minutesNeeded, String description) {
+    public Recipe(String name, Integer id, List<Ingredient> ingredients, String authorId, int minutesNeeded, String description) {
         this.name = name;
         this.id = id;
-//        this.ingredients = ingredients;
+        this.ingredients = ingredients;
         this.authorId = authorId;
         this.minutesNeeded = minutesNeeded;
         this.description = description;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public String getName() {
@@ -43,13 +64,13 @@ public class Recipe{
         this.id = id;
     }
 
-//    public ArrayList<Ingredient> getIngredients() {
-//        return ingredients;
-//    }
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
 
-//    public void setIngredients(ArrayList<Ingredient> ingredients) {
-//        this.ingredients = ingredients;
-//    }
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 
     public String getAuthorId() {
         return authorId;
