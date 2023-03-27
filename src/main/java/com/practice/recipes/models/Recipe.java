@@ -3,7 +3,12 @@ package com.practice.recipes.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -13,25 +18,28 @@ public class Recipe{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank
     @JsonProperty("recipe-name")
     private String name;
     @Embedded
+    @ElementCollection
     @JsonProperty("recipe-ingredients")
-    private List<Ingredient> ingredients;
-
+    private Collection<Ingredient> ingredients;
+    @NotNull
     @JsonProperty("recipe-author-id")
-    private String authorId;
-
+    private int authorId;
+    @Min(1)
     @JsonProperty("recipe-minutes-needed")
     private int minutesNeeded;
 
+    @NotBlank
     @JsonProperty("recipe-description")
     private String description;
     private Date dateCreated;
     public Recipe() {
     }
 
-    public Recipe(String name, Integer id, List<Ingredient> ingredients, String authorId, int minutesNeeded, String description) {
+    public Recipe(String name, Integer id, Collection<Ingredient> ingredients, int authorId, int minutesNeeded, String description) {
         this.name = name;
         this.id = id;
         this.ingredients = ingredients;
@@ -64,19 +72,19 @@ public class Recipe{
         this.id = id;
     }
 
-    public List<Ingredient> getIngredients() {
+    public Collection<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(Collection<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public String getAuthorId() {
+    public int getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(String authorId) {
+    public void setAuthorId(int authorId) {
         this.authorId = authorId;
     }
 

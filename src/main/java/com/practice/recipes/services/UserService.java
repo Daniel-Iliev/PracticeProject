@@ -4,7 +4,9 @@ import com.practice.recipes.models.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public interface UserService extends CrudRepository<User,Integer> {
-    User findByUsername(String username);
+    Optional<User> findByUsername(String username);
 }
