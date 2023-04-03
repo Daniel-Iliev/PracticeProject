@@ -10,6 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +21,7 @@ public class RecipeController {
     RecipeService recipeService;
     @PostMapping("/recipe")
     Recipe create(@Valid @RequestBody Recipe recipe){
+        recipe.setDateCreated(new Date());
         return recipeService.save(recipe);
     }
     @GetMapping("/recipe")
