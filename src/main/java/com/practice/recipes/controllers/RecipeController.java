@@ -25,8 +25,12 @@ public class RecipeController {
         return recipeService.save(recipe);
     }
     @GetMapping("/recipe")
-    Iterable<Recipe> read(){
+    Iterable<Recipe> getAll(){
         return recipeService.findAll();
+    }
+    @GetMapping("/recipe/{id}")
+    Recipe getById(@PathVariable Integer id){
+        return recipeService.findById(id).get();
     }
     @PutMapping("/recipe")
     Recipe update(@Valid @RequestBody Recipe recipe){

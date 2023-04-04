@@ -4,11 +4,9 @@ import com.practice.recipes.ErrorMessage;
 import com.practice.recipes.FieldErrorMessage;
 import com.practice.recipes.models.User;
 import com.practice.recipes.services.UserService;
-import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -21,33 +19,13 @@ import java.util.stream.Collectors;
 public class UserController {
     @Autowired
     UserService userService;
-    @PostMapping("/user")
-    User create(@Valid @RequestBody User user){
-            if (!userService.findByUsername(user.getUsername()).isPresent()){
-                return userService.save(user);
-            }
-            else{
-                throw new ValidationException("Username already exists");
-            }
-    }
-
     @GetMapping("/user")
     Iterable<User> read(){
         return userService.findAll();
     }
     @GetMapping("/user/search")
-    Optional<User> findByQuery(@RequestParam String username){
+    Optional<User> findByUsername(@RequestParam String username){
         return userService.findByUsername(username);
-    }
-    @PutMapping("/user")
-    ResponseEntity<User> update(@Valid @RequestBody User user){
-        if (userService.findById(user.getId()).isPresent()){
-            return new ResponseEntity(userService.save(user), HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity(user, HttpStatus.BAD_REQUEST);
-        }
-
     }
     @DeleteMapping("/user/{id}")
     void delete(@PathVariable Integer id){
